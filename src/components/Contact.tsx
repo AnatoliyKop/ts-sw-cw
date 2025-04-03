@@ -1,10 +1,22 @@
 import '../Contact.css'
-import {useEffect, useState} from "react";
-import {base_url, period_month} from "../utils/constants.ts";
+import {useContext, useEffect, useState} from "react";
+import {base_url, characters, defaultHero, period_month} from "../utils/constants.ts";
 import {Planet} from "../utils/types";
+import {useParams} from "react-router";
+import {SWContext} from "../utils/context.ts";
 
 const Contact = () => {
-    const [planets, setPlanets] = useState(['Loading...'])
+    const [planets, setPlanets] = useState(['Loading...']);
+
+    let {heroId = defaultHero} = useParams();
+    const {changeHero} = useContext(SWContext);
+
+    useEffect(() => {
+        if (!characters[heroId]) {
+            heroId = defaultHero;
+        }
+        changeHero(heroId);
+    }, []);
 
     async function fetchPlanets(url: string) {
         const response = await fetch(url);
@@ -22,7 +34,7 @@ const Contact = () => {
         if (planets && ((Date.now() - planets.timestamp) < period_month)) {
             setPlanets(planets.payload);
         } else {
-           fetchPlanets(`${base_url}/v1/planets`);
+            fetchPlanets(`${base_url}/v1/planets`);
         }
     }, [])
 

@@ -7,15 +7,6 @@ import {useHero} from "../hooks/useHero.ts"
 const Contact = () => {
     const [planets, setPlanets] = useState(['Loading...']);
 
-    // let {heroId = defaultHero} = useParams();
-    // const {changeHero} = useContext(SWContext);
-    //
-    // useEffect(() => {
-    //     if (!characters[heroId]) {
-    //         heroId = defaultHero;
-    //     }
-    //     changeHero(heroId);
-    // }, []);
    const mainHero= useHero()
     console.log(mainHero)
 

@@ -5,15 +5,11 @@ import {useHero} from "../hooks/useHero.ts";
 
 const AboutMe = () => {
     const [hero, setHero] = useState<HeroInfo>();
-    // let {heroId = defaultHero} = useParams();
-    // const {changeHero} = useContext(SWContext);
+
     const heroId=useHero()
 
     useEffect(() => {
-        // if(!characters[heroId]){
-        //    heroId = defaultHero;
-        // }
-        // changeHero(heroId);
+
         const hero = JSON.parse(localStorage.getItem(heroId)!);
         if (hero && ((Date.now() - hero.timestamp) < period_month)) {
             setHero(hero.payload);
